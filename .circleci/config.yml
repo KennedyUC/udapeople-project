@@ -182,7 +182,7 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-
+      - run: yum install -y tar gzip
       - run:
           name: Deploy backend infrastructure
           command: |
@@ -192,7 +192,6 @@ jobs:
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
               --region ${AWS_DEFAULT_REGION}
-
       - run:
           name: Deploy frontend infrastructure
           command: |
@@ -201,10 +200,9 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
-              --region ${AWS_DEFAULT_REGION}
-            
+              --region ${AWS_DEFAULT_REGION} 
       - run:
-          name: Add back-end ip to ansible inventory
+          name: Add backend ip to ansible inventory
           command: |
             cd .circleci/ansible
             cat inventory.txt
