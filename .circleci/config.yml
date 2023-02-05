@@ -184,7 +184,7 @@ jobs:
       - checkout
 
       - run:
-          name: Ensure back-end infrastructure exists
+          name: Deploy backend infrastructure
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
@@ -194,7 +194,7 @@ jobs:
               --region ${AWS_DEFAULT_REGION}
 
       - run:
-          name: Ensure front-end infrastructure exist
+          name: Deploy frontend infrastructure
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
