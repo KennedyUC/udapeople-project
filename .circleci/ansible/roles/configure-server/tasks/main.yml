@@ -1,4 +1,9 @@
 ---
+- name: Include vars
+  include_vars:
+    dir: vars
+    extensions: [yml]
+
 - name:  add Node.js source
   become: true
   shell: |
