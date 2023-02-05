@@ -6,11 +6,6 @@ Parameters:
     Type: String
 
 Resources:
-  keyPairName:
-    Type: 'AWS::EC2::KeyPair'
-    Properties:
-      KeyName: udakey
-
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -52,7 +47,7 @@ Resources:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: udakey
+      KeyName: udapeople
       ImageId: ami-068663a3c619dd892
       Tags:
         - Key: Name
