@@ -234,7 +234,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "4a:b7:28:c4:c3:99:19:ba:f5:d8:77:fc:6f:5f:ba:79"
+            - "ed:a1:99:19:c4:c2:4c:d0:1d:a3:e7:ef:ba:af:ca:a1"
       - attach_workspace:
           at: ~/
       - install_ansible
@@ -279,7 +279,7 @@ jobs:
           keys: [frontend-build]
       - add_ssh_keys:
           fingerprints:
-            - "4a:b7:28:c4:c3:99:19:ba:f5:d8:77:fc:6f:5f:ba:79"
+            - "ed:a1:99:19:c4:c2:4c:d0:1d:a3:e7:ef:ba:af:ca:a1"
       - attach_workspace:
           at: ~/
       - install_ansible
@@ -316,7 +316,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "4a:b7:28:c4:c3:99:19:ba:f5:d8:77:fc:6f:5f:ba:79"
+            - "ed:a1:99:19:c4:c2:4c:d0:1d:a3:e7:ef:ba:af:ca:a1"
       - attach_workspace:
           at: ~/
       - restore_cache:
@@ -427,6 +427,7 @@ jobs:
             then
               aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
               aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
             fi
             
 

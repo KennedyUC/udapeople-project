@@ -6,4 +6,4 @@ export TYPEORM_HOST=udapeople.ct5vudb2debm.us-east-1.rds.amazonaws.com
 export TYPEORM_PORT=5532
 export TYPEORM_USERNAME=udapeople
 export TYPEORM_PASSWORD=udapeople-1470
-export TYPEORM_DATABASE=postgres
+export TYPEORM_DATABASE=udapeople
