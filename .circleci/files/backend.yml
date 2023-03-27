@@ -1,3 +1,106 @@
+# ---
+# Description: >
+#   UdaPeople backend stack.
+# Parameters:
+#   ID:
+#     Description: Unique identifier.
+#     Type: String
+# Resources:
+#   Subnet:
+#     Type: AWS::EC2::Subnet
+#     Properties:
+#       VpcId: vpc-0bb50a21eafe17303
+#       CidrBlock: '10.0.5.0/24'
+#       AvailabilityZone: 'us-east-1b'
+#       Tags:
+#         - Key: Name
+#           Value: udacity
+#   InstanceSecurityGroup:
+#     Type: AWS::EC2::SecurityGroup
+#     Properties:
+#       GroupName: !Sub UdaPeople-${ID}
+#       VpcId: vpc-0bb50a21eafe17303
+#       GroupDescription: Allow port 22 and port 3030.
+#       SecurityGroupIngress:
+#         - IpProtocol: tcp
+#           FromPort: 22
+#           ToPort: 22
+#           CidrIp: 0.0.0.0/0
+#         - IpProtocol: tcp
+#           FromPort: 3030
+#           ToPort: 3030
+#           CidrIp: 0.0.0.0/0
+#         - IpProtocol: tcp
+#           FromPort: 443
+#           ToPort: 443
+#           CidrIp: 0.0.0.0/0
+#         - IpProtocol: tcp
+#           FromPort: 9090
+#           ToPort: 9090
+#           CidrIp: 0.0.0.0/0
+#         - IpProtocol: tcp
+#           FromPort: 9100
+#           ToPort: 9100
+#           CidrIp: 0.0.0.0/0
+#         - IpProtocol: tcp
+#           FromPort: 80
+#           ToPort: 80
+#           CidrIp: 0.0.0.0/0
+#         - IpProtocol: tcp
+#           FromPort: 9093
+#           ToPort: 9093
+#           CidrIp: 0.0.0.0/0
+#   EC2Instance:
+#     Type: AWS::EC2::Instance
+#     Properties:
+#       InstanceType: t2.micro
+#       ImageId: ami-0778521d914d23bc1
+#       KeyName: udacity
+#       NetworkInterfaces:
+#         - DeviceIndex: 0
+#           AssociatePublicIpAddress: true
+#           SubnetId: !Ref Subnet
+#           GroupSet:
+#             - !Ref InstanceSecurityGroup
+#       Tags:
+#         - Key: Name
+#           Value: !Sub backend-${ID}
+#   RouteTable:
+#     Type: AWS::EC2::RouteTable
+#     Properties:
+#       VpcId: vpc-0bb50a21eafe17303
+#   Route:
+#     Type: AWS::EC2::Route
+#     #DependsOn: VPCGatewayAttachment
+#     Properties:
+#       RouteTableId: !Ref RouteTable
+#       DestinationCidrBlock: '0.0.0.0/0'
+#       GatewayId: igw-03c1ace621f9ce74f
+#   SubnetRouteTableAssociation:
+#     Type: AWS::EC2::SubnetRouteTableAssociation
+#     Properties:
+#       SubnetId: !Ref Subnet
+#       RouteTableId: !Ref RouteTable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Description: >
   UdaPeople backend stack.
 Parameters:
@@ -47,8 +150,8 @@ Resources:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: udapeople
-      ImageId: ami-068663a3c619dd892
+      KeyName: udacity
+      ImageId: ami-0778521d914d23bc1
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
