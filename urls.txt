@@ -1,5 +1,6 @@
 Public Url to GitHub repository (not private) [URL01]
-    https://github.com/Cidospark/udacity-cicd-project
+    https://github.com/KennedyUC/udapeople-project
     
 Provide the public URL for your S3 Bucket (aka, your front-end). [URL02]
-    http://udapeople-1b1c4f6.s3-website-us-east-1.amazonaws.com/#/employees
+    http://udapeople-1fc4946.s3-website-us-east-1.amazonaws.com
+    http://d2mcx50kxga0t6.cloudfront.net
