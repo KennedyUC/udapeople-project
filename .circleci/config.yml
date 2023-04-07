@@ -60,7 +60,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS=$(curl --insecure  https://kvdb.io/CoKaffPPXVAByFDUPeewh9/migration_<< parameters.Workflow_id >>)
+            SUCCESS=$(curl --insecure  https://kvdb.io/UYsPxXBUSdMQZTFR2ufspX/migration_<< parameters.Workflow_id >>)
             # Logic for reverting the database state
             if (( $SUCCESS == 1 )); then
               cd ~/project/backend
@@ -253,7 +253,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl https://kvdb.io/CoKaffPPXVAByFDUPeewh9/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              curl https://kvdb.io/UYsPxXBUSdMQZTFR2ufspX/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             else
               echo "No migrations are pending" 
             fi
@@ -394,7 +394,7 @@ jobs:
               list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
               --no-paginate --output text)
             echo "Old Workflow ID: $OLD_WORKFLOW_ID"
-            curl https://kvdb.io/CoKaffPPXVAByFDUPeewh9/old_workflow_id -d "${OLD_WORKFLOW_ID}"
+            curl https://kvdb.io/UYsPxXBUSdMQZTFR2ufspX/old_workflow_id -d "${OLD_WORKFLOW_ID}"
       - run:
           name: Update cloudfront distribution
           command: |
@@ -422,10 +422,10 @@ jobs:
                 --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
             echo Stack names: "${STACKS[@]}"
 
-            export OldWorkflowID=$(curl --insecure https://kvdb.io/CoKaffPPXVAByFDUPeewh9/old_workflow_id)
+            export OldWorkflowID=$(curl --insecure https://kvdb.io/UYsPxXBUSdMQZTFR2ufspX/old_workflow_id)
             echo Old Workflow ID: $OldWorkflowID
 
-            if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
+            if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
             then
               echo "---------------------------Delete Confirmed--------------------------------"
               aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
