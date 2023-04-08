@@ -63,10 +63,12 @@ commands:
             SUCCESS=$(curl --insecure  https://kvdb.io/5fRqyh51aQdMssw9Hwa6dX/migration_<< parameters.Workflow_id >>)
             # Logic for reverting the database state
             if (( $SUCCESS == 1 )); then
+              echo "------------------------starting migration revertion-----------------------------------------"
               cd ~/project/backend
               npm install
               npm run build
               npm run migrations:revert
+              echo "------------------------migration revertion succeeded----------------------------------------"
             fi
 
 orbs: 
@@ -354,7 +356,7 @@ jobs:
             export API_URL=http://${BACKEND_PUBLIC_IP}:3030
             if curl --connect-timeout 60 $API_URL/api/status | grep "ok"
             then
-              exit 0
+              exit 1
             else
               exit 1
             fi
